@@ -1,0 +1,104 @@
+@baseUrl = http://127.0.0.1:8000/api
+@authToken = {{login.response.body.access_token}}
+
+###
+
+# @name login
+POST {{baseUrl}}/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "commercial@marcotrans.com",
+    "password": "password"
+}
+
+###
+
+# @name logout
+POST {{baseUrl}}/logout
+Authorization: Bearer {{authToken}}
+Accept: application/json
+
+###
+
+# @name getOrdersHistory
+GET {{baseUrl}}/orders
+Authorization: Bearer {{authToken}}
+Accept: application/json
+
+###
+
+# @name createOrder
+POST {{baseUrl}}/orders
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "client_id": 3,
+    "order_type": "international",
+    "delivery_address": "Hub Mvan, face agence Touristique, Yaoundé",
+    "total_price": 450000.00,
+    "items": [
+        {
+            "article_id": 1,
+            "quantity": 2
+        },
+        {
+            "article_id": 3,
+            "quantity": 1
+        }
+    ]
+}
+
+###
+
+# @name registerPackage
+POST {{baseUrl}}/packages
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "order_id": 1,
+    "package_type": "carton",
+    "total_weight": 24.50,
+    "dimensions": "1m x 0.8m x 1.2m"
+}
+
+###
+
+# @name updatePackageStatus
+PATCH {{baseUrl}}/packages/1/status
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "delivery_status": "customs_export"
+}
+
+###
+
+# @name addShipmentCheckpoint
+POST {{baseUrl}}/packages/checkpoints
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "package_id": 1,
+    "sequence_order": 2,
+    "location_name": "Zone Fret Aéroport International de Douala",
+    "status": "completed",
+    "description_note": "Colis dédouané avec succès à l'export. Prêt pour l'embarquement."
+}
+
+###
+
+# @name trackOrderWithTimeline
+# Remplace "MT-2026-xxxxx" par une vraie référence générée lors du test "createOrder"
+GET {{baseUrl}}/orders/MT-2026-00001
+Authorization: Bearer {{authToken}}
+Accept: application/json

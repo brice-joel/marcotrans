@@ -1,0 +1,48 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Marcotrans",
+        "description": "Documentation de l'API Backend pour le système Marcotrans",
+        "contact": {
+            "email": "contact@marcotrans.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "Serveur API"
+        }
+    ],
+    "paths": {
+        "/api/orders": {
+            "get": {
+                "tags": [
+                    "Commandes"
+                ],
+                "summary": "Liste des commandes",
+                "description": "Liste des commandes du client connecté (Historique).",
+                "operationId": "955bb77a45ae173a485fadb8befed93f",
+                "responses": {
+                    "200": {
+                        "description": "Liste des commandes récupérée avec succès"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Commandes",
+            "description": "Commandes"
+        }
+    ]
+}
