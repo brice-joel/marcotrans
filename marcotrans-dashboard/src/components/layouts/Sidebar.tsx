@@ -292,13 +292,19 @@ const navigationConfig: NavigationSection[] = [
   },
 ];
 
-export default function Sidebar({ isOpen, setIsOpen }: { isOpen?: boolean; setIsOpen?: (v: boolean) => void }) {
+export default function Sidebar({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen?: boolean;
+  setIsOpen?: (v: boolean) => void;
+}) {
   //const currentRole = useAuthStore((state) => state.role);
   const { user } = useAuthStore();
   const currentRole = user?.roles?.[0]?.name as string;
 
   return (
-    <aside 
+    <aside
       className={`fixed inset-y-0 left-0 z-50 lg:static h-full w-64 bg-[#0B132B] text-slate-400 flex flex-col shrink-0 border-r border-slate-800 transition-transform duration-300 ease-in-out ${
         isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       }`}
@@ -319,7 +325,7 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen?: boolean; setIs
           </div>
         </div>
         {/* Bouton de fermeture sur mobile */}
-        <button 
+        <button
           onClick={() => setIsOpen?.(false)}
           className="lg:hidden p-1 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
         >
@@ -349,9 +355,9 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen?: boolean; setIs
               {/* Éléments visibles de la section */}
               <div className="space-y-0.5">
                 {visibleItems.map((item, itemIdx) => (
-                  <SidebarItem 
-                    key={itemIdx} 
-                    item={item} 
+                  <SidebarItem
+                    key={itemIdx}
+                    item={item}
                     onLinkClick={() => setIsOpen?.(false)}
                   />
                 ))}
@@ -365,7 +371,13 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen?: boolean; setIs
 }
 
 // --- COMPOSANT INTERNE POUR UN ONGLET (AVEC OU SANS DROPDOWN) ---
-function SidebarItem({ item, onLinkClick }: { item: MenuItem; onLinkClick?: () => void }) {
+function SidebarItem({
+  item,
+  onLinkClick,
+}: {
+  item: MenuItem;
+  onLinkClick?: () => void;
+}) {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
